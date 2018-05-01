@@ -35,6 +35,7 @@ defmodule GatewayWeb.Endpoint do
     key: "_gateway_key",
     signing_salt: "akGtkqll"
 
+  plug CORSPlug, origin: ~r/.*/
   plug GatewayWeb.Router
 
   @doc """

@@ -36,7 +36,9 @@ defmodule Gateway.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:httpoison, "~> 1.1"}
+      {:httpoison, "~> 1.1"},
+      {:poison, "~> 3.1"},
+      {:cors_plug, "~> 1.5"}
     ]
   end
 end

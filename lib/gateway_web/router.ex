@@ -7,7 +7,10 @@ defmodule GatewayWeb.Router do
   end
 
   scope "/api", GatewayWeb do
-    pipe_through :api
-    get "/friends", FriendController, :index
+    pipe_through [:api]
+
+    scope "/friends" do
+      post "/search", FriendController, :search
+    end
   end
 end
