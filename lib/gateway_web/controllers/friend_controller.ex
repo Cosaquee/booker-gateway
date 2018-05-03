@@ -19,38 +19,36 @@ defmodule GatewayWeb.FriendController do
     end
   end
 
-  # def index(conn, _params) do
-    # conn
-    # friends = Friends.list_friends()
-    # render(conn, "index.json", friends: friends)
-  # end
+  def is_friend(conn, params) do
+    user_id = conn.assigns.current_user["user"]["id"]
+    friend_id = params["id"]
+    url = "http://localhost:3000/check-friendship/" <> Integer.to_string(user_id) <> "/" <> friend_id
 
-  # def create(conn, %{"friend" => friend_params}) do
-    # with {:ok, %Friend{} = friend} <- Friends.create_friend(friend_params) do
-      # conn
-      # |> put_status(:created)
-      # |> put_resp_header("location", friend_path(conn, :show, friend))
-      # |> render("show.json", friend: friend)
-    # end
-  # end
+    case conn |> Http.get(url) do
+      {:ok, body} ->
+        render(conn, "is_friend.json", is_friend: Poison.decode!(body))
+      {:error, result_code} ->
+        conn |> put_status(result_code)
+    end
+  end
 
-  # def show(conn, %{"id" => id}) do
-    # friend = Friends.get_friend!(id)
-    # render(conn, "show.json", friend: friend)
-  # end
+  def add_friend(conn, %{"friend_id" => friend_id}) do
+    user_id = conn.assigns.current_user["user"]["id"]
+    case conn |> Http.post("http://localhost:3000/friends", Poison.encode!(%{current_user_id: user_id, friend_id: friend_id})) do
+       {:ok, _} ->
+        conn |> render("is_friend.json", is_friend: %{friends: true})
+      {:error, status_code} ->
+        conn |> put_status(status_code)
+    end
+  end
 
-  # def update(conn, %{"id" => id, "friend" => friend_params}) do
-    # friend = Friends.get_friend!(id)
+  def index(conn, _) do
+    user_id = conn.assigns.current_user["user"]["id"]
 
-    # with {:ok, %Friend{} = friend} <- Friends.update_friend(friend, friend_params) do
-      # render(conn, "show.json", friend: friend)
-    # end
-  # end
-
-  # def delete(conn, %{"id" => id}) do
-    # friend = Friends.get_friend!(id)
-    # with {:ok, %Friend{}} <- Friends.delete_friend(friend) do
-      # send_resp(conn, :no_content, "")
-    # end
-  # end
+    with {:ok, body} <- conn |> Http.get("http://localhost:3000/friends/" <> Integer.to_string(user_id)),
+         {:ok, users} <- conn |> Http.get("http://localhost:4000/friends?ids=" <> body)
+    do
+      render(conn, "search.json", users: Poison.decode!(users))
+    end
+  end
 end

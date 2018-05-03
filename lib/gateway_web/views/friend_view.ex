@@ -17,4 +17,8 @@ defmodule GatewayWeb.FriendView do
   def render("search.json", %{users: users}) do
     %{data: users}
   end
+
+  def render("is_friend.json", %{is_friend: is_friend}) do
+    %{is_friend: is_friend["friends"]}
+  end
 end
