@@ -1,4 +1,3 @@
-require IEx
 defmodule GatewayWeb.FriendController do
   use GatewayWeb, :controller
 

@@ -1,4 +1,3 @@
-require IEx
 defmodule Gateway.Http do
   def post(conn, url, content) do
     headers = headers(conn)

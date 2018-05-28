@@ -1,4 +1,3 @@
-require IEx
 defmodule GatewayWeb.UserController do
   use GatewayWeb, :controller
 

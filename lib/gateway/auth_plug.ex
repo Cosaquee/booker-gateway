@@ -1,4 +1,3 @@
-require IEx
 defmodule Gateway.AuthenticationPlug do
 
   import Plug.Conn

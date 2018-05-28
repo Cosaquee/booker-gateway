@@ -19,5 +19,11 @@ defmodule GatewayWeb.Router do
     scope "/users" do
       get "/:id", UserController, :profile
     end
+
+    scope "/author" do
+      post "/", AuthorController, :new
+      get "/search", AuthorController, :search
+      get "/:id", AuthorController, :fetch
+    end
   end
 end
