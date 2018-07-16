@@ -38,7 +38,9 @@ defmodule Gateway.Mixfile do
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 1.1"},
       {:poison, "~> 3.1"},
-      {:cors_plug, "~> 1.5"}
+      {:cors_plug, "~> 1.5"},
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
+      {:distillery, "~> 1.5", runtime: false}
     ]
   end
 end
