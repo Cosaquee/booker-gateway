@@ -25,5 +25,9 @@ defmodule GatewayWeb.Router do
       get "/search", AuthorController, :search
       get "/:id", AuthorController, :fetch
     end
+
+    scope "/book" do
+      post "/", BookController, :new
+    end
   end
 end
