@@ -5,9 +5,9 @@ defmodule GatewayWeb.AuthorController do
 
   action_fallback GatewayWeb.FallbackController
 
-  def new(conn, %{"author" => %{"birthDate" => birthDate, "description" => description, "name" => name, "surname" => surname}}) do
+  def new(conn, %{"author" => %{"description" => description, "name" => name, "surname" => surname}}) do
     response = conn
-      |> Http.post("http://localhost:3000/author", Poison.encode!(%{name: name, surname: surname, description: description, birthDate: birthDate}))
+      |> Http.post("http://localhost:3000/author", Poison.encode!(%{name: name, surname: surname, description: description}))
 
     case response do
       {:ok, body} ->
