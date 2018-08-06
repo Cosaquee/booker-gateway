@@ -1,5 +1,5 @@
 # Booker Gateway
-
+# ABANDONED in favor of monolitic application [Booker](https://github.com/Cosaquee/booker)
 ## Setup
 
 To install dependencies: `mix deps.get`
